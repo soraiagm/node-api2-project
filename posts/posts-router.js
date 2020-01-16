@@ -28,21 +28,21 @@ router.post('/', (request, response) => {
 //  POST // make a new comment to an id
 router.post('/:id/comments', (req, res) => {
     const { text } = req.body
-    const post_id = req.params.id
+    const id = req.params.id
 
-    Posts.findById(req.params.id)
-        .then(post => {
-            if (!post[0]) {
+    Posts.findById(id)
+        .then(findingByID => {
+            if (findingById.length === 0) {
                 res.status(404).json({ message: "The post with the specified ID does not exist." })
             }
         })
     if (!req.body.text) {
         res.status(400).json({ errorMessage: "Please provide text for the comment." })
     } else {
-        Posts.insertComment({ text, post_id })
-            .then(data => {
+        Posts.insertComment({ post_id: id, text: text })
+            .then(comment => {
                 console.log(data.id)
-                res.status(201).json(data)
+                res.status(201).json(comment)
             })
             .catch(error => {
                 console.log(error)

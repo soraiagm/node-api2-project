@@ -3,8 +3,10 @@ const express = require('express');
 const postsRouter = require('../posts/posts-router.js');
 
 const server = express();
-
 server.use(express.json());
+
+const cors= require('cors');
+server.use(cors());
 
 server.get('/', (req, res) => {
   res.send(`
